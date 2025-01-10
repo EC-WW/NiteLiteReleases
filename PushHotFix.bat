@@ -11,10 +11,6 @@ for /f "tokens=1-2 delims=.v" %%a in ("%version%") do (
 set new_version=%major%.%minor%
 echo v%new_version% > version.txt
 
-git add VERSION.txt
-
-git commit -m "Updated version number to v%new_version%"
-
 ::create the release on github
 gh release create %version% --notes %version%
 
@@ -28,3 +24,8 @@ gh release upload %version% NiteLite.zip
 
 ::delete the uploaded zip
 del NiteLite.zip
+
+::push updated version number to github
+git add VERSION.txt
+git commit -m "Updated version number to v%new_version%"
+git push
