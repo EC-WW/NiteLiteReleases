@@ -15,6 +15,7 @@ echo v%new_version% > version.txt
 gh release create %new_version% --notes %new_version%
 
 ::grab an editorless exe, and zip everything up
+xcopy .\VERSION.txt ..\..\x64\Release\NiteLite\VERSION.txt /Y /S /I
 xcopy ..\..\x64\Release_NoEditor\NiteLite\NiteLite.exe ..\..\x64\Release\NiteLite\NiteLite_NoEditor.exe /Y /S /I
 powershell.exe Compress-Archive ..\..\x64\Release\NiteLite NiteLite.zip -Force
 del ..\..\x64\Release_NoEditor\NiteLite\NiteLite_NoEditor.exe
