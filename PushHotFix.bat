@@ -1,3 +1,5 @@
+call buildforpush.bat
+
 ::make sure we have the most up to date version number
 git fetch
 git pull
