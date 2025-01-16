@@ -15,7 +15,7 @@ call "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDe
 
 REM Build the engine without the editor so the engine has a copy for exporting
 echo Building %NO_EDITOR_CONFIG% configuration...
-msbuild %ENGINE_SLN_PATH% /p:Configuration=%NO_EDITOR_CONFIG% /p:Platform=%PLATFORM%
+msbuild /nr:false %ENGINE_SLN_PATH% /p:Configuration=%NO_EDITOR_CONFIG% /p:Platform=%PLATFORM%
 if %errorlevel% neq 0 (
     echo Build failed for %NO_EDITOR_CONFIG%.
     exit /b %errorlevel%
@@ -23,7 +23,7 @@ if %errorlevel% neq 0 (
 
 REM Build the engine w/editor
 echo Building %RELEASE_CONFIG% configuration...
-msbuild %ENGINE_SLN_PATH% /p:Configuration=%RELEASE_CONFIG% /p:Platform=%PLATFORM%
+msbuild /nr:false %ENGINE_SLN_PATH% /p:Configuration=%RELEASE_CONFIG% /p:Platform=%PLATFORM%
 if %errorlevel% neq 0 (
     echo Build failed for %RELEASE_CONFIG%.
     exit /b %errorlevel%
@@ -31,7 +31,7 @@ if %errorlevel% neq 0 (
 
 REM Build the launcher
 echo Building launcher
-msbuild %LAUNCHER_SLN_PATH% /p:Configuration=%RELEASE_CONFIG% /p:Platform=%PLATFORM%
+msbuild /nr:false %LAUNCHER_SLN_PATH% /p:Configuration=%RELEASE_CONFIG% /p:Platform=%PLATFORM%
 if %errorlevel% neq 0 (
     echo Build failed for launcher.
     exit /b %errorlevel%
