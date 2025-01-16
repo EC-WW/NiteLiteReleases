@@ -21,6 +21,7 @@ powershell.exe Compress-Archive ..\..\x64\Release\NiteLite NiteLite.zip -Force
 del ..\..\x64\Release_NoEditor\NiteLite\NiteLite_NoEditor.exe
 
 ::add the zip to the release
+gh release uplaod %new_version% VERSION.txt
 gh release upload %new_version% NiteLite.zip
 
 ::delete the uploaded zip
