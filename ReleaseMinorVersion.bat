@@ -3,18 +3,21 @@ call buildforpush.bat
 echo Waiting 30 seconds for msbuild to let go of files before upload
 sleep 30
 
-::make sure we have the most up to date version number
-git fetch
-git pull
+::Get version number from the most recent release, if there is none, start at 0.0.0
+powershell -Command "Invoke-WebRequest https://github.com/EC-WW/NiteLiteReleases/releases/latest/download/VERSION.txt -OutFile VERSION.txt"
+if errorlevel 1 (
+    echo v0.0.0 > VERSION.txt
+)
 
 ::get current version and increment version file major version number
 set /p version=<version.txt
-for /f "tokens=1-2 delims=.v" %%a in ("%version%") do (
-  set /a major=%%a
-  set /a minor=%%b + 1
+for /f "tokens=1-3 delims=.v" %%a in ("%version%") do (
+  set /a super=%%a
+  set /a major=%%b
+  set /a minor=%%c + 1
 )
-set new_version=%major%.%minor%
-echo v%new_version% > version.txt
+set new_version= %super%.%major%.%minor%
+echo v%new_version% > VERSION.txt
 
 
 ::grab an editorless exe, and zip everything up
@@ -35,10 +38,6 @@ gh release create %new_version% --notes %new_version%
 gh release upload %new_version% VERSION.txt
 gh release upload %new_version% NiteLite.zip
 
-::delete the uploaded zip
+::delete the uploaded stuffs
+del VERSION.txt
 del NiteLite.zip
-
-::push updated version number to github
-git add VERSION.txt
-git commit -m "Released version v%new_version%"
-git push

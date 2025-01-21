@@ -1,5 +1,4 @@
 REM Configuration
-set LAUNCHER_SLN_PATH="..\..\NiteLaunch.sln"
 set ENGINE_SLN_PATH="..\..\NiteLite.sln"
 set NO_EDITOR_CONFIG="Release_NoEditor"
 set RELEASE_CONFIG="Release"
@@ -26,13 +25,5 @@ echo Building %RELEASE_CONFIG% configuration...
 msbuild /nr:false %ENGINE_SLN_PATH% /p:Configuration=%RELEASE_CONFIG% /p:Platform=%PLATFORM%
 if %errorlevel% neq 0 (
     echo Build failed for %RELEASE_CONFIG%.
-    exit /b %errorlevel%
-)
-
-REM Build the launcher
-echo Building launcher
-msbuild /nr:false %LAUNCHER_SLN_PATH% /p:Configuration=%RELEASE_CONFIG% /p:Platform=%PLATFORM%
-if %errorlevel% neq 0 (
-    echo Build failed for launcher.
     exit /b %errorlevel%
 )
