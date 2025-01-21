@@ -16,7 +16,7 @@ for /f "tokens=1-3 delims=.v" %%a in ("%version%") do (
   set /a major=%%b
   set /a minor=%%c + 1
 )
-set new_version= %super%.%major%.%minor%
+set new_version=%super%.%major%.%minor%
 echo v%new_version% > VERSION.txt
 
 
