@@ -13,8 +13,8 @@ if errorlevel 1 (
 set /p version=<version.txt
 for /f "tokens=1-3 delims=.v" %%a in ("%version%") do (
   set /a super=%%a + 1
-  set /a major=%%b
-  set /a minor=%%c
+  set /a major=0
+  set /a minor=0
 )
 set new_version=%super%.%major%.%minor%
 echo v%new_version% > VERSION.txt
